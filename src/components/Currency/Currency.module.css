@@ -1,9 +1,11 @@
 .title {
+  margin: 0 0 20px 0;
   text-transform: uppercase;
 }
 
 .btns {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .btn {
@@ -29,6 +31,7 @@
 }
 
 .list {
+  margin-top: 0;
   padding-left: 0;
   list-style: none;
 }

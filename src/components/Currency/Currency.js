@@ -27,7 +27,7 @@ function Currency({rates, getRub, getEuro, getUsd}) {
   );
 }
 
-const mapStateToProps = (state) => ({ rates: state.reducer })
+const mapStateToProps = (state) => ({ rates: state.reducer_1 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   actions,

@@ -1,5 +1,6 @@
 .btns {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .btn {
@@ -22,4 +23,16 @@
 
 .active:hover {
   background-color: rgba(115, 244, 235, 0.4);
+}
+
+.inputs {
+  display: flex;
+}
+
+.input {
+  padding: 10px;
+}
+
+.input:not(:last-child) {
+  margin-right: 5px;
 }

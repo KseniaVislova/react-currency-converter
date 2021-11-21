@@ -1,38 +1,60 @@
-import {React, useState} from "react";
+import { React } from "react";
 import styles from './Calculator.module.css'
 import classnames from "classnames";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import  * as actions from '../../store/actions/actions';
 
-const Calculator = (props) => {
-  const [count, setCount] = useState(0);
 
+const Calculator = ({counts, outputRub, outputEuro, outputUsd, inputRub, inputEuro, inputUsd}) => {
+  console.log(counts)
   function handleChange(e) {
-    setCount(e.target.value)
+    if (counts.outputCurrency === counts.inputCurrency) {
+      counts.count1 = counts.count2
+    }
   }
-
-  console.log(props)
 
   return (
     <div>
-      {props.isLoading ? 'Загрузка данных' :
+      {counts.isLoading ? 'Загрузка данных' :
         (<div>
-          <div className={styles.btns}>
-            <button className={classnames([styles.btn], {[styles.active]: props.base === 'RUB'})} >RUB</button>
-            <button className={classnames([styles.btn], {[styles.active]: props.base === 'EUR'})} >EUR</button>
-            <button className={classnames([styles.btn], {[styles.active]: props.base === 'USD'})} >USD</button>
+          <div className={styles.inputs}>
+            <div>
+              <div className={styles.btns}>
+                <button className={classnames([styles.btn], {[styles.active]: counts.inputCurrency === 'RUB'})} onClick={inputRub}>RUB</button>
+                <button className={classnames([styles.btn], {[styles.active]: counts.inputCurrency === 'EUR'})} onClick={inputEuro}>EUR</button>
+                <button className={classnames([styles.btn], {[styles.active]: counts.inputCurrency === 'USD'})} onClick={inputUsd}>USD</button>
+              </div>
+              <input className={styles.input}
+                value={counts.count1}
+                onChange={handleChange} />
+            </div>
+            <div>
+              <div className={styles.btns}>
+                <button className={classnames([styles.btn], {[styles.active]: counts.outputCurrency === 'RUB'})} onClick={outputRub}>RUB</button>
+                <button className={classnames([styles.btn], {[styles.active]: counts.outputCurrency === 'EUR'})} onClick={outputEuro}>EUR</button>
+                <button className={classnames([styles.btn], {[styles.active]: counts.outputCurrency === 'USD'})} onClick={outputUsd}>USD</button>
+              </div>
+              <input className={styles.input}
+              value={counts.count2}
+              onChange={handleChange} />
+            </div>
+            
           </div>
-        <fieldset>
-          <legend>Введите число:</legend>
-          <input
-            value={count}
-            onChange={handleChange} />
-          <div>{parseFloat(count)}</div>
-        </fieldset>
         </div>
       )}
     </div>
   );
 }
 
-//<button className={classnames([styles.btn], {[styles.active]: props.base === 'USD'})} onClick={props.getUsd}>USD</button>
+const mapStateToProps = (state) => ({ counts: state.reducer_2 })
 
-export default Calculator;
+const mapDispatchToProps = dispatch => bindActionCreators(
+  actions,
+  dispatch,
+);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Calculator);
