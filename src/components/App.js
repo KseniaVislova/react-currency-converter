@@ -10,14 +10,15 @@ const rates = {//для разработки
     EUR: 1,
     USD: 1.135609,
     RUB: 83.04369
-  }
+  },
+  isLoading: false, //при переписывании на получение с API заменить
 }
 
 function App() {
 
   const [currency, setCurrency] = useState(rates.rates);
   const [base, setBase] = useState(rates.base);
-  const [isLoading, setLoading] = useState(false); //потом поменять 
+  const [isLoading, setLoading] = useState(rates.isLoading); //потом поменять 
 
  console.log(currency)
 
@@ -34,7 +35,7 @@ function App() {
     } 
   }*/
 
-  const getRub = () => {
+  /*const getRub = () => {
     switch(base) {
       case 'EUR':
         setBase('RUB');
@@ -83,12 +84,12 @@ function App() {
         currency.USD = 1;
         break
     }
-  }
+  }*/
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.border}>
-      <span></span>
+        <span></span>
         <span></span>
         <span></span>
         <span></span>
@@ -103,15 +104,16 @@ function App() {
             </NavLink>
           </nav>
           <Routes>
-            <Route path="/" index element={<Currency 
+            <Route path="/" index element={<Currency
+            />} />
+            <Route path="/calculator" element={<Calculator
             currency={currency}
-            getEuro={getEuro}
-            getRub={getRub}
-            getUsd={getUsd}
+            //getEuro={getEuro}
+            //getRub={getRub}
+            //getUsd={getUsd}
             isLoading={isLoading}
             base={base}
             />} />
-            <Route path="/calculator" element={<Calculator />} />
           </Routes>
         </Router>
       </div>

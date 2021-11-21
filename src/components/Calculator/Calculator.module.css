@@ -1,0 +1,25 @@
+.btns {
+  display: flex;
+}
+
+.btn {
+  padding: 5px 15px;
+  margin-right: 2px;
+  color: #fff;
+  font-family: 'PT Mono', monospace;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+}
+
+.btn:hover {
+  background-color: rgba(115, 244, 235, 0.1);
+}
+
+.active {
+  background-color: rgba(115, 244, 235, 0.4);
+}
+
+.active:hover {
+  background-color: rgba(115, 244, 235, 0.4);
+}

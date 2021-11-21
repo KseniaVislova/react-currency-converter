@@ -1,23 +1,25 @@
 import styles from './Currency.module.css'
 import classnames from "classnames";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import  * as actions from '../../store/actions/actions';
 
-function Currency(props) {
-  console.log(props.getEuro)
+function Currency({rates, getRub, getEuro, getUsd}) {
 
   return (
     <div>
       <h2 className={styles.title}>Текущий курс валют</h2>
-      {props.isLoading ? 'Загрузка данных' :
+      {rates.isLoading ? 'Загрузка данных' :
       ( <div>
         <div className={styles.btns}>
-          <button className={classnames([styles.btn], {[styles.active]: props.base === 'RUB'})} onClick={props.getRub}>RUB</button>
-          <button className={classnames([styles.btn], {[styles.active]: props.base === 'EUR'})} onClick={props.getEuro}>EUR</button>
-          <button className={classnames([styles.btn], {[styles.active]: props.base === 'USD'})} onClick={props.getUsd}>USD</button>
+          <button className={classnames([styles.btn], {[styles.active]: rates.base === 'RUB'})} onClick={getRub}>RUB</button>
+          <button className={classnames([styles.btn], {[styles.active]: rates.base === 'EUR'})} onClick={getEuro}>EUR</button>
+          <button className={classnames([styles.btn], {[styles.active]: rates.base === 'USD'})} onClick={getUsd}>USD</button>
         </div>
         <ul className={styles.list}>
-          <li className={classnames([styles.item], {[styles.none]: props.base === 'EUR'})}>Евро: {props.currency.EUR.toFixed(3)}</li>
-          <li className={classnames([styles.item], {[styles.none]: props.base === 'USD'})}>Доллар: {props.currency.USD.toFixed(3)}</li>
-          <li className={classnames([styles.item], {[styles.none]: props.base === 'RUB'})}>Рубль: {props.currency.RUB.toFixed(3)}</li>
+          <li className={classnames([styles.item], {[styles.none]: rates.base === 'EUR'})}>Евро: {rates.rates.EUR.toFixed(3)}</li>
+          <li className={classnames([styles.item], {[styles.none]: rates.base === 'USD'})}>Доллар: {rates.rates.USD.toFixed(3)}</li>
+          <li className={classnames([styles.item], {[styles.none]: rates.base === 'RUB'})}>Рубль: {rates.rates.RUB.toFixed(3)}</li>
         </ul>
       </div>
      )}
@@ -25,4 +27,14 @@ function Currency(props) {
   );
 }
 
-export default Currency;
+const mapStateToProps = (state) => ({ rates: state.reducer })
+
+const mapDispatchToProps = dispatch => bindActionCreators(
+  actions,
+  dispatch,
+);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Currency);
